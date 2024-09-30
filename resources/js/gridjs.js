@@ -7,5 +7,6 @@ new Grid({
         ['Mike', 'mike@gmail.com']
     ]
 }).updateConfig({
-    columns:['Name','Email','Phone Number'],
+    columns:['日付','項目','収支','備考','記入者'],
+    sort: true,
 }).render(document.getElementById('table'));
