@@ -1,3 +1,109 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+/* 他のCSSスタイルをここに追加 */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    
+}
+
+body{
+    background: #eaf4d3;
+}
+
+.sidebar{
+    position: fixed;
+    left: -250px;
+    background: #556a28;
+    width: 250px;
+    height: 100%;
+    transition: all 0.5s;
+}
+
+.sidebar header{
+    font-size: 22px;
+    color: white;
+    text-align: center;
+    padding-top: 5px;
+    padding-right: 20px;
+    line-height: 70px;
+    background: #c5e287;
+    user-select: none;
+}
+
+.sidebar ul a{
+    display: block;
+    height: 100%;
+    width: 100%;
+    line-height: 65px;
+    color: white;
+    font-size: 20px;
+    padding-left: 40px;
+    border-top: 1px solid rgb(255,255,255,0.1);
+}
+
+ul li:hover a{
+    padding-left: 50px;
+}
+
+.sidebar ul a i{
+    padding-right: 8px;
+}
+
+/*サイドバーのトリガー*/
+#check{
+    display: none;
+}
+
+label #menu,
+label #cancel{
+    position: absolute;
+    background: #556a28;
+    border-radius: 3px;
+}
+
+label #menu{
+    color: white;
+    left: 40px;
+    top: 25px;
+    font-size: 30px;
+    padding: 6px 12px;
+    transition: 0.8s;
+}
+
+label #cancel{
+    left: -95px;
+    top: 17px;
+    font-size: 30px;
+    color: white;
+    padding: 4px 9px;
+    transition:  0.5s;
+}
+
+label #menu:hover{
+    font-size:35px;
+    transition: 0.3s;
+}
+label #cancel:hover{
+    font-size: 35px;
+    transition: 0.3s;
+}
+
+#check:checked ~ .sidebar{
+    left: 0px;
+    z-index: 10;
+}
+
+#check:checked ~ label #menu{
+    left: 200px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#check:checked ~ label #cancel{
+    left: 195px;
+    z-index: 15;
+}
