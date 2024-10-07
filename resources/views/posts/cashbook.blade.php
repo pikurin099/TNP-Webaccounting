@@ -45,10 +45,10 @@
     </ul>
     </div>
 
-    <!--入力欄-->
+    <!--通常入力欄-->
     <form id="cashbook_form">
-        <label for="date">日付</label>
-        <input type="date" id="date" required><br>
+        <label for="input_date">日付</label>
+        <input type="date" id="input_date" required><br>
         <label for="description">内容</label>
         <input type="text" id="description" required><br>
         <label for="amount">金額</label>
@@ -63,17 +63,44 @@
         <input type="number" id="balance" required><br>
         <label for="remark">備考</label>
         <input type="text" id="remark"><br>
-        <label for="writer">記入者</label>
-        <input type="text" id="writer" required><br>
+        <label for="input_writer">記入者</label>
+        <input type="text" id="input_writer" required><br>
         <button type="submit">追加</button>
     </form>
+
+    <!--金種別入力-->
+    <form id="denomination_input_form">
+    <label for="denomination_date">日付</label>
+    <input type="date" id="denomination_date"><br>
+    <label for="yen_10000">10000円札</label>
+    <input type="number" id="yen_10000"><br>
+    <label for="yen_5000">5000円札</label>
+    <input type="number" id="yen_5000"><br>
+    <label for="yen_1000">1000円札</label>
+    <input type="number" id="yen_1000"><br>
+    <label for="yen_500">500円硬貨</label>
+    <input type="number" id="yen_500"><br>
+    <label for="yen_100">100円硬貨</label>
+    <input type="number" id="yen_100"><br>
+    <label for="yen_50">50円硬貨</label>
+    <input type="number" id="yen_50"><br>
+    <label for="yen_10">10円硬貨</label>
+    <input type="number" id="yen_10"><br>
+    <label for="yen_5">5円硬貨</label>
+    <input type="number" id="yen_5"><br>
+    <label for="yen_1">1円硬貨</label>
+    <input type="number" id="yen_1"><br>
+    <label for="denomination_writer">記入者</label>
+    <input type="text" id="denomination_writer"><br>
+    <button type="submit" id="denomination_submit">登録</button>
+</form>
 
     <!--現金出納帳-->
     <div id="cashbook_table"></div> 
 
-    <!--こっちにも書いた方が読み込み早くなるってほんと？-->
+    <!--こっちにも書いた方が読み込み早くなるってほんと？
     <script>
-        <!--grid.jsによる表作成-->
+        
         const data = [];
         const grid = new gridjs.Grid({ // 'gridjs'を使用
             columns: ['日付', '内容','金額', '取引タイプ', '残高', '備考', '記入者'],
@@ -99,7 +126,8 @@
             data.push([date, description,amount, transactionType, balance, remark, writer]);
             grid.updateConfig({ data }).forceRender();
         }
-    </script>
+    </script> -->
+    @vite(['resources/js/gridjs.js'])
 </body>
 </html>
 
