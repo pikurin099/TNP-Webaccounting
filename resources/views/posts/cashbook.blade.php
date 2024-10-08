@@ -24,9 +24,7 @@
         <li>
             <a href="#"><i class="fa-solid fa-swatchbook">現金出納帳</i></a>
         </li>
-        <li>
-            <a href="#"><i class="fa-solid fa-money-bill">金種別入力</i></a>
-        </li>
+    
         <li>
             <a href="#"><i class="fa-solid fa-chart-simple">今年度収支</i></a>
         </li>
