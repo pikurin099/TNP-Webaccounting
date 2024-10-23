@@ -7,19 +7,19 @@ const grid = new Grid({
     data: data,
 }).render(document.getElementById('cashbook_table'));
 
-document.getElementById('cashbook_form').addEventListener('submit', function (e) { // 修正: IDを正しく修正
+document.getElementById('cashbook_form').addEventListener('submit', function (e) { 
     e.preventDefault();
 
     const date = document.getElementById('input_date').value;
     const description = document.getElementById('description').value;
-    const amount = document.getElementById('amount').value; // 修正: descriptionを適切に取得
-    const transactionType = document.getElementById('transaction-type').value; // 修正: transaction-typeを適切に取得
+    const amount = document.getElementById('amount').value; 
+    const transactionType = document.getElementById('transaction-type').value; 
     const balance = document.getElementById('balance').value;
     const remark = document.getElementById('remark').value;
     const writer = document.getElementById('input_writer').value;
 
     addDataToGrid(date, description,amount, transactionType, balance, remark, writer);
-    document.getElementById('cashbook_form').reset(); // 修正: IDを正しく修正
+    document.getElementById('cashbook_form').reset(); 
 });
 
 function addDataToGrid(date, description, amount,transactionType, balance, remark, writer) {
@@ -82,5 +82,47 @@ document.getElementById('denomination_input_form').addEventListener('submit', fu
     // フォームをリセット
     document.getElementById('denomination_input_form').reset();
 });
+
+
+const navItems = document.querySelectorAll('.list');
+
+navItems.forEach(item => {
+    item.addEventListener('click', () => {
+        // クリックしたボタンに「active」クラスを追加し、他のボタンから削除
+        navItems.forEach(nav => nav.classList.remove('active'));
+        item.classList.add('active');
+
+        // 対応するフォームを表示・非表示
+        const targetId = item.getAttribute('data-target');
+
+        document.querySelectorAll('.input-area').forEach(area => {
+            if (area.id === targetId) {
+                // フォームの表示状態を切り替え
+                if (area.style.display === 'none' || area.style.display === '') {
+                    area.style.display = 'block';  // フォームを表示
+                } else {
+                    area.style.display = 'none';   // フォームを非表示
+                }
+            } else {
+                area.style.display = 'none';  // 他のフォームは非表示
+            }
+        });
+    });
+});
+
+// 最初にすべてのフォームを非表示に設定
+document.querySelectorAll('.input-area').forEach(area => {
+    area.style.display = 'none';
+});
+
+// 最初にすべてのフォームを非表示に設定
+document.querySelectorAll('.input-area').forEach(area => {
+    area.style.display = 'none';
+});
+
+
+
+
+
 
 
