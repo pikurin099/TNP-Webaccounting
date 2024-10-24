@@ -7,10 +7,22 @@
     <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js" type="text/javascript"></script> <!-- CDNからGrid.jsを読み込み -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!-- Axiosの読み込み -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js','resources/css/cashbook.css'])
 </head>
 <body>
-
+    <!--ツールバーのトリガー-->
+    <div class="toolbar">
+        <ul>
+            <li class="list active" data-target="cashbook_form">
+            <i class="fa-solid fa-calculator"></i>
+            <span>通常入力</span>
+            </li>
+            <li class="list" data-target="denomination_input_form">
+                <i class="fa-solid fa-coins"></i>
+                <span>金種別入力</span>
+            </li>
+        </ul>
+    </div>
  <!--サイドバーのトリガー-->
     <input type="checkbox" id="check">
     <label for="check">
@@ -23,9 +35,6 @@
     <ul>
         <li>
             <a href="#"><i class="fa-solid fa-swatchbook">現金出納帳</i></a>
-        </li>
-        <li>
-            <a href="#"><i class="fa-solid fa-money-bill">金種別入力</i></a>
         </li>
         <li>
             <a href="#"><i class="fa-solid fa-chart-simple">今年度収支</i></a>
@@ -46,7 +55,7 @@
     </div>
 
     <!--通常入力欄-->
-    <form id="cashbook_form">
+    <form id="cashbook_form" class="input-area">
         <label for="input_date">日付</label>
         <input type="date" id="input_date" required><br>
         <label for="description">内容</label>
@@ -69,7 +78,7 @@
     </form>
 
     <!--金種別入力-->
-    <form id="denomination_input_form">
+    <form id="denomination_input_form" class="input-area">
     <label for="denomination_date">日付</label>
     <input type="date" id="denomination_date"><br>
     <label for="yen_10000">10000円札</label>

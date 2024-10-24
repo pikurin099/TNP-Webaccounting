@@ -12,10 +12,12 @@
 
 body{
     background: #eaf4d3;
+    min-height: 100vh;
 }
 
 .sidebar{
     position: fixed;
+    top: 0;
     left: -250px;
     background: #556a28;
     width: 250px;
