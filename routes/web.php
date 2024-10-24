@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CashbookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('posts/cashbook');
 });
+
+Route::post('/submit',[CashbookController::class,'store'])->name('cashbook.store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -83,4 +83,20 @@ document.getElementById('denomination_input_form').addEventListener('submit', fu
     document.getElementById('denomination_input_form').reset();
 });
 
+document.getElementById('denomination_input_form').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+
+    const formData = new FormData(this); 
+
+    const csrfToken = document.querySelector('input[name="_token"]').value;
+
+    fetch('/submit', { 
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': csrfToken 
+        }
+    })
+});
+
 

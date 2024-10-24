@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/gridjs/dist/theme/mermaid.css">
     <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js" type="text/javascript"></script> <!-- CDNからGrid.jsを読み込み -->
@@ -69,7 +70,8 @@
     </form>
 
     <!--金種別入力-->
-    <form id="denomination_input_form">
+    <form id="denomination_input_form" method="POST" action="{{ route('cashbook.store') }}">
+        @csrf
     <label for="denomination_date">日付</label>
     <input type="date" id="denomination_date"><br>
     <label for="yen_10000">10000円札</label>
