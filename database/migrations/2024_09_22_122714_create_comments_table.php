@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->notNullable();
-            $table->unsignedBigInteger('cash_balance_logs_id')->notNullable();
-            $table->timestamps();
+            $table->cash_balance_logs_id();
+            $table->body();
+            $table->timestamps(cretated_at);
         });
     }
 
