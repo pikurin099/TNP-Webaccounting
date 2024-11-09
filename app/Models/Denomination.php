@@ -5,22 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cashbook extends Model
+class Denomination extends Model
 {
     use HasFactory;
 
-    protected $table='cashbooks';
+    protected $table='cashbalancelogs';
 
     protected $fillable=[
-        'id',
+        'category_id',
+        'user_id',
+        'title',
         'date',
-        'year',
-        'month',
-        'description',
-        'amount',
-        'transaction_type',
-        'category',
-        'balance',
+        'total_balance',
         'cash_type_10000',
         'cash_type_5000',
         'cash_type_1000',
@@ -30,7 +26,8 @@ class Cashbook extends Model
         'cash_type_10',
         'cash_type_5',
         'cash_type_1',
+        'updated_at',
         'created_at',
-        'updated_at'
+        'writer'
     ];
 }

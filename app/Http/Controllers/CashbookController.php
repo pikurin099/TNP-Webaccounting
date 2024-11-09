@@ -3,59 +3,97 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Cashbook; // Cashbookモデルをインポート
+use App\Models\Cashbook;
+use App\Models\Denomination;
+use Carbon\Carbon;
 
 class CashbookController extends Controller
 {
-    // 現金出納帳の一覧表示
-    public function index()
-    {
-        // 全てのcashbookデータを取得してビューに渡す
-        $cashbooks = Cashbook::all();
 
-        // cashbook.indexビューにデータを渡して表示
-        return view('cashbook.index', compact('cashbooks'));
+    public function index(Request $request)
+{
+    switch ($request->input('submit_type')) {
+        case 'type1':
+            $cashbooks = Cashbook::all();
+            return view('posts.cashbook', compact('cashbooks'));
+            break;
+        
+        case 'type2':
+            $denominations = Denomination::all();
+            return view('posts.denomination', compact('denominations'));
+            break;
+        
+        default:
+            $cashbooks = Cashbook::all();
+            $denominations = Denomination::all();
+            return view('posts.index', compact('cashbooks', 'denominations'));
     }
+}
 
-    // データの保存処理（フォームからPOSTされたデータの処理）
+
+
+   
     public function store(Request $request)
     {
-        // バリデーションルールを設定
-        $validated = $request->validate([
-            'date' => 'required|date',
-            'year' => 'required|integer',
-            'month' => 'required|integer',
-            'description' => 'required|string|max:255',
-            'amount' => 'required|integer',
-            'transaction_type' => 'required|string',
-            'category' => 'nullable|string',
-            'balance' => 'required|integer',
-            'cash_type_10000' => 'required|integer',
-            'cash_type_5000' => 'required|integer',
-            'cash_type_1000' => 'required|integer',
-            'cash_type_500' => 'required|integer',
-            'cash_type_100' => 'required|integer',
-            'cash_type_50' => 'required|integer',
-            'cash_type_10' => 'required|integer',
-            'cash_type_5' => 'required|integer',
-            'cash_type_1' => 'required|integer',
-        ]);
+        switch($request->input('submit_type')){
+            case 'type1':
+                $data = $request->validate([
+                    'date' => 'nullable|date',
+                    'cash_type_10000' => 'nullable|integer',
+                    'cash_type_5000' => 'nullable|integer',
+                    'cash_type_1000' => 'nullable|integer',
+                    'cash_type_500' => 'nullable|integer',
+                    'cash_type_100' => 'nullable|integer',
+                    'cash_type_50' => 'nullable|integer',
+                    'cash_type_10' => 'nullable|integer',
+                    'cash_type_5' => 'nullable|integer',
+                    'cash_type_1' => 'nullable|integer',
+                    'writer' => 'nullable|string',
+                ]);
+        
+                $data['date'] = isset($data['date']) && is_string($data['date']) ? Carbon::parse($data['date']) : now();
+                $data['year'] = $data['date']->year;
+                $data['month'] = $data['date']->month;
+                $data['description']='nothing';
+                $data['amount']=0;
+                $data['balance']=0;
+                $data['category']='nothing';
+                $data['updated_at'] = now();
+                $data['created_at'] = now();
+        
+                Cashbook::create($data);
+        
+                return redirect('/')->with('status','データが送信されました！');
+                break;
+            case 'type2':
+                $data=$request->validate([
+                    'date' => 'nullable|date',
+                    'year'=>'nullable|integer',
+                    'month'=>'nullable|integer',
+                    'description'=>'nullable|integer',
+                    'amount'=>'nullable|integer',
+                    'transaction_type'=>'nullable',
+                    'category'=>'nullable',
+                    'balance'=>'nullable',
+                    'cash_type_10000' => 'nullable|integer',
+                    'cash_type_5000' => 'nullable|integer',
+                    'cash_type_1000' => 'nullable|integer',
+                    'cash_type_500' => 'nullable|integer',
+                    'cash_type_100' => 'nullable|integer',
+                    'cash_type_50' => 'nullable|integer',
+                    'cash_type_10' => 'nullable|integer',
+                    'cash_type_5' => 'nullable|integer',
+                    'cash_type_1' => 'nullable|integer',
+                    'writer' => 'nullable|string',
+                ]);
+                $data['date'] = isset($data['date']) && is_string($data['date']) ? Carbon::parse($data['date']) : now();
+                $data['year'] = $data['date']->year;
+                $data['month'] = $data['date']->month;
 
-        // データを新規作成して保存
-        Cashbook::create($validated);
-
-        // 保存後に一覧ページにリダイレクト
-        return response()->json(['message'=>'Data stored successfully!'],200);
+                Denomination::create($data);
+                return redirect('/')->with('status','データが送信されました！');
+                break;
     }
-
-    // 個別のデータ表示（詳細ページなど）
-    public function show($id)
-    {
-        // idを元に個別のcashbookデータを取得
-        $cashbook = Cashbook::findOrFail($id);
-
-        // cashbook.showビューにデータを渡して表示
-        return view('cashbook.show', compact('cashbook'));
-    }
+}
 }
 

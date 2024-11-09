@@ -7,20 +7,20 @@ const grid = new Grid({
     data: data,
 }).render(document.getElementById('cashbook_table'));
 
-document.getElementById('cashbook_form').addEventListener('submit', function (e) { 
+/*document.getElementById('cashbook_form').addEventListener('submit', function (e) { // 修正: IDを正しく修正
     e.preventDefault();
 
     const date = document.getElementById('input_date').value;
     const description = document.getElementById('description').value;
-    const amount = document.getElementById('amount').value; 
-    const transactionType = document.getElementById('transaction-type').value; 
+    const amount = document.getElementById('amount').value; // 修正: descriptionを適切に取得
+    const transactionType = document.getElementById('transaction-type').value; // 修正: transaction-typeを適切に取得
     const balance = document.getElementById('balance').value;
     const remark = document.getElementById('remark').value;
     const writer = document.getElementById('input_writer').value;
 
     addDataToGrid(date, description,amount, transactionType, balance, remark, writer);
-    document.getElementById('cashbook_form').reset(); 
-});
+    document.getElementById('cashbook_form').reset(); // 修正: IDを正しく修正
+});*/
 
 function addDataToGrid(date, description, amount,transactionType, balance, remark, writer) {
     data.push([date, description, amount,transactionType, balance, remark, writer]);
@@ -28,8 +28,7 @@ function addDataToGrid(date, description, amount,transactionType, balance, remar
 }
 
 //金種別入力
-document.getElementById('denomination_input_form').addEventListener('submit', function(e) {
-    e.preventDefault();
+/*document.getElementById('denomination_input_form').addEventListener('submit', function(e) {
 
     // フォームの値を取得し、数値に変換
     const date = document.getElementById('denomination_date').value;
@@ -81,36 +80,16 @@ document.getElementById('denomination_input_form').addEventListener('submit', fu
 
     // フォームをリセット
     document.getElementById('denomination_input_form').reset();
-});
-
-document.getElementById('denomination_input_form').addEventListener('submit', function(event) {
-    event.preventDefault(); 
-
-    const formData = new FormData(this); 
-
-    const csrfToken = document.querySelector('input[name="_token"]').value;
-
-    fetch('/submit', { 
-        method: 'POST',
-        body: formData,
-        headers: {
-            'X-CSRF-TOKEN': csrfToken 
-        }
-    })
-});
-
+});*/
 
 const navItems = document.querySelectorAll('.list');
-
 navItems.forEach(item => {
     item.addEventListener('click', () => {
         // クリックしたボタンに「active」クラスを追加し、他のボタンから削除
         navItems.forEach(nav => nav.classList.remove('active'));
         item.classList.add('active');
-
         // 対応するフォームを表示・非表示
         const targetId = item.getAttribute('data-target');
-
         document.querySelectorAll('.input-area').forEach(area => {
             if (area.id === targetId) {
                 // フォームの表示状態を切り替え
@@ -125,20 +104,30 @@ navItems.forEach(item => {
         });
     });
 });
-
+// 最初にすべてのフォームを非表示に設定
+document.querySelectorAll('.input-area').forEach(area => {
+    area.style.display = 'none';
+});
 // 最初にすべてのフォームを非表示に設定
 document.querySelectorAll('.input-area').forEach(area => {
     area.style.display = 'none';
 });
 
-// 最初にすべてのフォームを非表示に設定
-document.querySelectorAll('.input-area').forEach(area => {
-    area.style.display = 'none';
-});
 
+/*document.getElementById('denomination_input_form').addEventListener('submit', function(event) {
+    event.preventDefault(); 
 
+    const formData = new FormData(this); 
 
+    const csrfToken = document.querySelector('input[name="_token"]').value;
 
-
+    fetch('/submit', { 
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': csrfToken 
+        }
+    })
+});*/
 
 

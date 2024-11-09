@@ -5,9 +5,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/gridjs/dist/theme/mermaid.css">
-    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js" type="text/javascript"></script> <!-- CDNからGrid.jsを読み込み -->
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js" type="text/javascript">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!-- Axiosの読み込み -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js','resources/css/cashbook.css'])
 </head>
 <body>
@@ -55,55 +56,77 @@
     </ul>
     </div>
 
-    <!--通常入力欄-->
-    <form id="cashbook_form" class="input-area">
-        <label for="input_date">日付</label>
-        <input type="date" id="input_date" required><br>
-        <label for="description">内容</label>
-        <input type="text" id="description" required><br>
-        <label for="amount">金額</label>
-        <input type="number" id="amount"required><br>
-        <label for="transaction-type">取引タイプ</label>
-        <select id="transaction-type">
-            <option value="収入">収入</option>
-            <option value="支出">支出</option>
-            <option value="金庫入力">金庫入力</option>
-        </select><br>
-        <label for="balance">残高</label>
-        <input type="number" id="balance" required><br>
-        <label for="remark">備考</label>
-        <input type="text" id="remark"><br>
-        <label for="input_writer">記入者</label>
-        <input type="text" id="input_writer" required><br>
-        <button type="submit">追加</button>
-    </form>
+    <!-- 通常入力欄 -->
+<form id="cashbook_form" class="input-area" method="POST" action="{{ route('cashbook.store') }}">
+    @csrf
+    <label for="input_date">日付</label>
+    <input type="date" id="input_date" name="date" required><br>
+    <label for="description">内容</label>
+    <input type="text" id="description" name="description" required><br>
+    <label for="amount">金額</label>
+    <input type="number" id="amount" name="amount" required><br>
+    <label for="transaction-type">取引タイプ</label>
+    <select id="transaction-type" name="transaction_type">
+        <option value="収入">収入</option>
+        <option value="支出">支出</option>
+        <option value="金庫入力">金庫入力</option>
+    </select><br>
+    <label for="balance">残高</label>
+    <input type="number" id="balance" name="balance" required><br>
+    <label for="remark">備考</label>
+    <input type="text" id="remark" name="remark"><br>
+    <label for="input_writer">記入者</label>
+    <input type="text" id="input_writer" name="writer" required><br>
+    <button type="submit" name="submit_type" value="type1">追加</button>
+</form>
 
-    <!--金種別入力-->
-    <form id="denomination_input_form" method="POST" action="{{ route('cashbook.store') }}">
-        @csrf
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
+<!-- 金種別入力 -->
+<form id="denomination_input_form" class="input-area" method="POST" action="{{ route('cashbook.store') }}">
+    @csrf
     <label for="denomination_date">日付</label>
-    <input type="date" id="denomination_date"><br>
+    <input type="date" id="denomination_date" name="date"><br>
+    
     <label for="yen_10000">10000円札</label>
-    <input type="number" id="yen_10000"><br>
+    <input type="number" id="yen_10000" name="cash_type_10000"><br>
+    
     <label for="yen_5000">5000円札</label>
-    <input type="number" id="yen_5000"><br>
+    <input type="number" id="yen_5000" name="cash_type_5000"><br>
+    
     <label for="yen_1000">1000円札</label>
-    <input type="number" id="yen_1000"><br>
+    <input type="number" id="yen_1000" name="cash_type_1000"><br>
+    
     <label for="yen_500">500円硬貨</label>
-    <input type="number" id="yen_500"><br>
+    <input type="number" id="yen_500" name="cash_type_500"><br>
+    
     <label for="yen_100">100円硬貨</label>
-    <input type="number" id="yen_100"><br>
+    <input type="number" id="yen_100" name="cash_type_100"><br>
+    
     <label for="yen_50">50円硬貨</label>
-    <input type="number" id="yen_50"><br>
+    <input type="number" id="yen_50" name="cash_type_50"><br>
+    
     <label for="yen_10">10円硬貨</label>
-    <input type="number" id="yen_10"><br>
+    <input type="number" id="yen_10" name="cash_type_10"><br>
+    
     <label for="yen_5">5円硬貨</label>
-    <input type="number" id="yen_5"><br>
+    <input type="number" id="yen_5" name="cash_type_5"><br>
+    
     <label for="yen_1">1円硬貨</label>
-    <input type="number" id="yen_1"><br>
+    <input type="number" id="yen_1" name="cash_type_1"><br>
+    
     <label for="denomination_writer">記入者</label>
-    <input type="text" id="denomination_writer"><br>
-    <button type="submit" id="denomination_submit">登録</button>
+    <input type="text" id="denomination_writer" name="writer"><br>
+    
+    <button type="submit" id="denomination_submit" name="submit_type" value="type2">登録</button>
 </form>
 
     <!--現金出納帳-->

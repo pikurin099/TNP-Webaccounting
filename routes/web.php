@@ -16,14 +16,20 @@ use App\Http\Controllers\CashbookController;
 */
 
 Route::get('/', function () {
-    return view('posts/cashbook');
-});
+    return view('posts.cashbook');
+})->middleware(['auth', 'verified']); // 認証と確認を要求
 
-Route::post('/submit',[CashbookController::class,'store'])->name('cashbook.store');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('posts.cashbook'); // cashbook.blade.phpを表示
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/cashbook',[CashbookController::class,'index'])->name('cashbook.index');
+Route::post('/cashbook',[CashbookController::class,'store'])->name('cashbook.store');
+
+Route::get('/submit',[CashbookController::class,'store'])->name('submit');
+Route::post('/submit',[CashbookController::class,'store'])->name('submit');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
