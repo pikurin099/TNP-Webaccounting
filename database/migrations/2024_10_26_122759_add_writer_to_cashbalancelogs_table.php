@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('cash_id')->nullable();
-            $table->string('category_name');
-            $table->text('description')->nullable();
-            $table->timestamps();
+        Schema::table('cashbalancelogs', function (Blueprint $table) {
+            //
         });
-        
     }
 
     /**
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::table('cashbalancelogs', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->id();
-            $table->cash_balance_logs_id();
-            $table->body();
-            $table->timestamps(cretated_at);
+            $table->id(); // 主キー
+            $table->unsignedBigInteger('cash_balance_log_id'); // cash_balance_logsテーブルのIDを参照
+            $table->text('body'); // コメントの本文
+            $table->timestamps(); // created_atとupdated_atカラム
         });
+        
     }
 
     /**

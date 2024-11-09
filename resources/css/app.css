@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import "@fortawesome/fontawesome-free/css/all.css";
 
 /* 他のCSSスタイルをここに追加 */
@@ -12,17 +16,16 @@
 
 body{
     background: #eaf4d3;
-    min-height: 100vh;
 }
 
 .sidebar{
     position: fixed;
-    top: 0;
     left: -250px;
     background: #556a28;
     width: 250px;
     height: 100%;
     transition: all 0.5s;
+    z-index: 15;
 }
 
 .sidebar header{
@@ -32,7 +35,7 @@ body{
     padding-top: 5px;
     padding-right: 20px;
     line-height: 70px;
-    background: #c5e287;
+    background: #213000;
     user-select: none;
 }
 
@@ -96,7 +99,6 @@ label #cancel:hover{
 
 #check:checked ~ .sidebar{
     left: 0px;
-    z-index: 10;
 }
 
 #check:checked ~ label #menu{
@@ -107,5 +109,4 @@ label #cancel:hover{
 
 #check:checked ~ label #cancel{
     left: 195px;
-    z-index: 15;
 }
